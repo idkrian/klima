@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Logo from '../assets/logo.png'
 
 export default function Navbar() {
