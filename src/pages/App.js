@@ -38,14 +38,6 @@ function App() {
       <Navbar/>
       <main>
         <div className="search-box">
-          {/* <input 
-            type="text"
-            className="search-bar"
-            placeholder="Ex: Toronto"
-            onChange={e => setQuery(e.target.value)}
-            value={query}
-            onKeyPress={search}
-          /> */}
           <input type="text" onKeyPress={search} value={query} onChange={e => setQuery(e.target.value)} placeholder="Ex: Toronto" className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative text-white bg-black rounded text-md border-0 shadow outline-none focus:outline-none w-full"/>
 
         </div>

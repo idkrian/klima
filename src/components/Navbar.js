@@ -16,11 +16,6 @@ export default function Navbar() {
             </div>
             <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
-                {/* <Link href="/Pesquisa"> */}
-                    <a className="block mt-4 lg:inline-block lg:mt-0 text-green-800 hover:text-black mr-4">
-                        Pesquisar
-                    </a>
-                {/* </Link> */}
                 </div>
             </div>
             </nav>        
