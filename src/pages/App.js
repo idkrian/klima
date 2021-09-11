@@ -9,38 +9,46 @@ function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
-  const search = evt => {
-    if (evt.key === "Enter") {
-      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+  const search = () => {
+    // if (evt.key === "Enter") {
+      fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}&lang=pt_br`)
         .then(res => res.json())
         .then(result => {
           setWeather(result);
-          setQuery('');
+          // setQuery('');
           console.log(result);
         });
-    }
+    // }
   }
 
   const dateBuilder = (d) => {
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    let days = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
 
     let day = days[d.getDay()];
     let date = d.getDate();
     let month = months[d.getMonth()];
     let year = d.getFullYear();
 
-    return `${day} ${date} ${month} ${year}`
+    return `${day}, ${date} de ${month} de ${year}`
   }
 
   return (
-    <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 16) ? 'app warm' : 'app') : 'app'}>
+    <div className="app">
       <Navbar/>
       <main>
-        <div className="search-box">
-          <input type="text" onKeyPress={search} value={query} onChange={e => setQuery(e.target.value)} placeholder="Ex: Toronto" className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative text-white bg-black rounded text-md border-0 shadow outline-none focus:outline-none w-full"/>
-
+        <div className="flex items-center border-b border-teal-500 py-2">
+          <input type="text" value={query} onChange={e => setQuery(e.target.value)} placeholder="Ex: Toronto" className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"/>
+          <button onClick={search} className="flex-shrink-0 border-transparent border-4 text-white hover:text-teal-800 text-sm py-1 px-2 rounded" type="button">
+              Procurar
+            </button>
         </div>
+          {/* <div className="flex items-center border-b border-teal-500 py-2">
+            <input onKeyPress={search} value={query} onChange={e => setQuery(e.target.value)} className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Ex: Toronto"/>
+            <button onClick={search} className="flex-shrink-0 border-transparent border-4 text-white hover:text-teal-800 text-sm py-1 px-2 rounded" type="button">
+              Procurar
+            </button>
+          </div> */}
         {(typeof weather.main != "undefined") ? (
         <div>
           <div className="location-box">
@@ -48,10 +56,10 @@ function App() {
             <div className="date">{dateBuilder(new Date())}</div>
           </div>
           <div className="weather-box">
-            <div className="temp">
+            <div className="temp weather-text">
               {Math.round(weather.main.temp)}°C
             </div>
-            <div className="weather">{weather.weather[0].main}</div>
+            <div className="weather weather-txt">{weather.weather[0].description}</div>
           </div>
         </div>
         ) : ('')}
