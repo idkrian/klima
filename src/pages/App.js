@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 const api = {
   key: process.env.REACT_APP_key,
@@ -43,12 +43,6 @@ function App() {
               Procurar
             </button>
         </div>
-          {/* <div className="flex items-center border-b border-teal-500 py-2">
-            <input onKeyPress={search} value={query} onChange={e => setQuery(e.target.value)} className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Ex: Toronto"/>
-            <button onClick={search} className="flex-shrink-0 border-transparent border-4 text-white hover:text-teal-800 text-sm py-1 px-2 rounded" type="button">
-              Procurar
-            </button>
-          </div> */}
         {(typeof weather.main != "undefined") ? (
         <div>
           <div className="location-box">
