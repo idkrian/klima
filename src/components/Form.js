@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Typography, Button, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { TextField, Typography, Button } from '@mui/material';
 import Logo from '../assets/img/logo.png'
-import '@fontsource/roboto/400.css'
 import { useStyles } from '../stylesheets/homeStyles';
 
 
@@ -10,17 +9,26 @@ function Form() {
 
     const [query, setQuery] = useState('');
     const [weather, setWeather] = useState({});
+    const [error, setError] = useState('');
     const api = {
         key: process.env.REACT_APP_key,
         base: "https://api.openweathermap.org/data/2.5/"
     }
 
     const search = (evt) => {
-        fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}&lang=pt_br`)
-            .then(res => res.json())
-            .then(result => {
-                setWeather(result);
-            });
+        if (query.length !== 0) {
+            fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}&lang=pt_br`)
+                .then(res => res.json())
+                .then(result => {
+                    if (result.cod === '404') {
+                        window.alert('Cidade Não Encontrada')
+                    }
+                    setWeather(result);
+                });
+        } else {
+            window.alert('Digite um Valor Válido')
+        }
+
     }
 
     const dateBuilder = (d) => {
@@ -36,8 +44,8 @@ function Form() {
 
     return (
         <div>
-            <div style={{ fontFamily: "Roboto" }}>
-                <img src={Logo} style={{ height: '100px', margin: 'auto' }} />
+            <div>
+                <img src={Logo} style={{ height: '100px', margin: 'auto' }} alt='logo' />
                 <Typography variant="h3" component="h2">
                     Klima
                 </Typography>
@@ -47,40 +55,34 @@ function Form() {
                     id="standard-basic"
                     label="Digite o nome de uma cidade. Ex: Toronto"
                     variant="standard"
-                    value={query} onChange={e => setQuery(e.target.value)}
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
                     className={classes.root}
 
                 />
                 <Button
                     variant="outlined"
                     onClick={search}
-                    style={{
-                        borderColor: 'black',
-                        color: 'black',
-                        boxShadow: '1px 1px 2px'
-                    }}
+                    className={classes.searchButton}
                 >Procurar</Button>
                 <br />
             </div>
             {
                 (typeof weather.main != "undefined") ? (
                     <div className={classes.weatherBox}>
-                        <div className="">
-                            <Typography variant="body1" className={classes.country}>
-                                {weather.name}, {weather.sys.country}
-                            </Typography>
-                            <Typography variant="body1">
-                                {dateBuilder(new Date())}
-                            </Typography>
-                        </div>
-                        <div>
-                            <Typography variant="body1">
-                                {Math.round(weather.main.temp)}°C
-                            </Typography>
-                            <Typography className={classes.climate} variant="body1">
-                                {weather.weather[0].description}
-                            </Typography>
-                        </div>
+                        <Typography variant="h3">
+                            {Math.round(weather.main.temp)}°C
+                        </Typography>
+                        <img className={classes.flag} src={`https://flagcdn.com/64x48/${(weather.sys.country).toLowerCase()}.png`} alt='flag' />
+                        <Typography variant="body1" className={classes.country}>
+                            {weather.name}, {weather.sys.country}
+                        </Typography>
+                        <Typography variant="body1">
+                            {dateBuilder(new Date())}
+                        </Typography>
+                        <Typography className={classes.climate} variant="body1">
+                            {weather.weather[0].description}
+                        </Typography>
                     </div>
                 ) : ('')
             }
