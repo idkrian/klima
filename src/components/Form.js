@@ -9,7 +9,6 @@ function Form() {
 
     const [query, setQuery] = useState('');
     const [weather, setWeather] = useState({});
-    const [error, setError] = useState('');
     const api = {
         key: process.env.REACT_APP_key,
         base: "https://api.openweathermap.org/data/2.5/"
