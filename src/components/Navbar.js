@@ -3,7 +3,7 @@ import Logo from '../assets/logo.png'
 
 export default function Navbar() {
     return (
-        <div className='inset-x-0 top-0 bg-black'>
+        <view className='inset-x-0 top-0 bg-black'>
             <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
             <div className="flex items-center flex-shrink-0 text-white mr-6">
                 <img src = {Logo} alt="Logo" className="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54" />
@@ -19,6 +19,6 @@ export default function Navbar() {
                 </div>
             </div>
             </nav>        
-        </div>
+        </view>
     );
 }
