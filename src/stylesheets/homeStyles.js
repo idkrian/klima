@@ -20,11 +20,6 @@ const useStyles = makeStyles({
       },
     },
   },
-  country: {
-    fontSize: '20px'
-  },
-  flag: {
-  },
   searchButton: {
     borderColor: 'black',
     color: 'black',

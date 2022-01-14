@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Typography, Button } from '@mui/material';
 import Logo from '../assets/img/logo.png'
 import { useStyles } from '../stylesheets/homeStyles';
-
+import '../stylesheets/index.css'
 
 function Form() {
     const classes = useStyles();
@@ -69,17 +69,18 @@ function Form() {
             {
                 (typeof weather.main != "undefined") ? (
                     <div className={classes.weatherBox}>
-                        <Typography variant="h3">
-                            {Math.round(weather.main.temp)}°C
-                        </Typography>
-                        <img className={classes.flag} src={`https://flagcdn.com/64x48/${(weather.sys.country).toLowerCase()}.png`} alt='flag' />
-                        <Typography variant="body1" className={classes.country}>
+                        <Typography variant="h6">
                             {weather.name}, {weather.sys.country}
                         </Typography>
-                        <Typography variant="body1">
+                        <img className={classes.flag} src={`https://flagcdn.com/64x48/${(weather.sys.country).toLowerCase()}.png`} alt='flag' />
+                        <Typography variant="h2">
+                            {Math.round(weather.main.temp)}°C
+                        </Typography>
+                        <br />
+                        <Typography variant="h6">
                             {dateBuilder(new Date())}
                         </Typography>
-                        <Typography className={classes.climate} variant="body1">
+                        <Typography className={classes.climate} variant="h6">
                             {weather.weather[0].description}
                         </Typography>
                     </div>
